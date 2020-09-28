@@ -38,7 +38,7 @@ The mean cannot be taken for character or factor vectors as they are not numeric
 
 (To be clear, I wrote the characters before I watched the live video, I think I did it correctly after watchinf the video!)
 
-### Problem 1, continued
+#### Problem 1, continued
 
 ```{r, results = FALSE}
 
@@ -57,7 +57,7 @@ mean_fac = mean(pull(prob1_df, vec_fac))
 
 Using the as.numeric function, vec_log and vec_fac convert to numeric. Using the same function, vec_char was not converted, but introduced NAs.
 
-### Problem 1, continued again.
+#### Problem 1, continued again.
 Converting and multiplying.
 
 ```{r, results = FALSE}
@@ -78,39 +78,24 @@ I converted the logical vector to numeric and multiplied it by the sample. I was
 ## Problem 2 
 
 
-```{r prob2}
+```{r prob2, echo = FALSE}
 
 data("penguins", package = "palmerpenguins")
 
-#drop_na_(pull(penguins, flipper_length_mm))
+omit_pen <- na.omit(penguins)
 
-#completerecords <- na.omit(penguins)
-#drop_na(flipper_length_mm)
-#mean(penguins, flipper_length_mm)
-
-
-#plot_penguins = tibble(
-  #x = bill_length_mm,
- # y = flipper_length_mm
- # )
-#this doesn't work yet ://
-
-#ggplot(plot_penguins, aes(x = x, y = y, color = species)) + geom_point()
-
-#mean_flip = mean(pull(penguins, flipper_length_mm))
-#This data set has `r nrow(penguins)` observations and `r ncol(penguins)` vectors.  There are 4 factor variables (species, island, sex, year), 4 numeric vectors (bill length, bill depth, flipper length, body mass). The mean length of penguin flippers is `r mean_flip`.
+mean_flip = mean(pull(omit_pen, flipper_length_mm))
 
 ```
 
 
- 
+This data set has `r nrow(penguins)` observations and `r ncol(penguins)` vectors.  There are 3 factor variables (species, island, sex), 5 numeric vectors (bill length, bill depth, flipper length, body mass, year). The mean length of penguin flippers is `r mean_flip`. 
 
-## Including Plots
+```{r prob2cont}
 
-You can also embed plots, for example:
+ggplot(omit_pen, aes(x = bill_length_mm, y = flipper_length_mm, color = species)) + geom_point() + xlab("Bill Length (mm)") + ylab("Flipper Length (mm)") + ggtitle("Plot of bill length by flipper length")
 
-```{r pressure, echo=FALSE}
-#plot(pressure)
+ggsave(filename = "penguin.png")
+
 ```
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
